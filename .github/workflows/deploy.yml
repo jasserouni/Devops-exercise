@@ -18,7 +18,7 @@ jobs:
       run: docker build . --file Dockerfile --tag ec2_aws:$(date +%s)
 
     - name: setting EC2 instance credentials
-      uses: applebowl/ssh-action@1.2.0
+      uses: appleboy/ssh-action@1.2.0
       with:
         aws-host: ${{ secrets.EC2_HOST }}
         aws-user: ${{ secrets.EC2_USER }}
