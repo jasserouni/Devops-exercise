@@ -17,7 +17,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ec2_aws:$(date +%s)
 
-    - name: setting EC2 instance credentials
+    - name: setting EC2 instance credentials & ssh
       uses: appleboy/ssh-action@v1.2.0
       with:
         host: ${{ secrets.EC2_HOST }}
