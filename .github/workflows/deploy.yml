@@ -13,9 +13,9 @@ jobs:
 
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ec2_aws:$(date +%s)
+    #- uses: actions/checkout@v4
+    #- name: Build the Docker image
+    #  run: docker build . --file Dockerfile --tag ec2_aws:$(date +%s)
 
     - name: setting EC2 instance credentials & ssh
       uses: appleboy/ssh-action@v1.2.0
@@ -25,6 +25,7 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         run: |
           ssh user@host
+          docker build . --file Dockerfile --tag ec2_aws:$(date +%s)
           docker stop $(docker ps -q)
           docker run --expose=5000 $(docker ps -q)
         
