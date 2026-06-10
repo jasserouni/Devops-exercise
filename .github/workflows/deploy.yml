@@ -1,6 +1,7 @@
 name : deploy EC2 instance
 
-on push :
+on :
+ push :
   branches : main
 
 
@@ -16,11 +17,13 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ec2_aws:$(date +%s)
 
-    - name: ssh into EC2 instance
+    - name: setting EC2 instance credentials
       with:
         aws-host: ${{ secrets.EC2_HOST }}
         aws-user: ${{ secrets.EC2_USER }}
         aws-key: ${{ env.EC2_SSH_KEY }}
+    
+    - name : ssh into EC2 instance
       run: |
           ssh aws-user@aws-user
           docker stop $(docker ps -q)
