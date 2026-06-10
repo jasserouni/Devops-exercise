@@ -1,0 +1,30 @@
+name : deploy EC2 instance
+
+on 
+ push :
+  branches : main
+
+
+
+jobs: 
+  deploy :
+    name: deploy 
+    runs-on : ubuntu-latest
+
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag ec2_aws:$(date +%s)
+
+    - name: ssh into EC2 instance
+      with:
+        aws-host: ${{ secrets.EC2_HOST }}
+        aws-user: ${{ secrets.EC2_USER }}
+        aws-key: ${{ env.EC2_SSH_KEY }}
+      run: |
+          ssh aws-user@aws-user
+          docker stop $(docker ps -q)
+          docker run --expose=5000 $(docker ps -q)
+        
+    
