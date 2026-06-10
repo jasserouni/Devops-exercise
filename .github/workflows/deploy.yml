@@ -20,9 +20,9 @@ jobs:
     - name: setting EC2 instance credentials
       uses: appleboy/ssh-action@v1.2.0
       with:
-        aws-host: ${{ secrets.EC2_HOST }}
-        aws-user: ${{ secrets.EC2_USER }}
-        aws-key: ${{ env.EC2_SSH_KEY }}
+        aws_host: ${{ secrets.EC2_HOST }}
+        aws_user: ${{ secrets.EC2_USER }}
+        aws_key: ${{ secrets.EC2_SSH_KEY }}
     
     - name : ssh into EC2 instance
       run: |
